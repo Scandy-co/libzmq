@@ -446,7 +446,8 @@ void zmq::udp_engine_t::out_event ()
         errno_assert (rc != -1);
 #else
         rc = sendto (_fd, _out_buffer, size, 0, _out_address, _out_address_len);
-      if( errno == EHOSTUNREACH || errno == EHOSTDOWN){
+      if(errno == EHOSTUNREACH || errno == EHOSTDOWN || errno == ENETDOWN ||
+         errno == ENETUNREACH){
           // UDP "No route to host" we don't care about..
       } else {
         errno_assert (rc != -1);
