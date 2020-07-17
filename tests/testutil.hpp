@@ -59,6 +59,10 @@
 
 #undef NDEBUG
 
+#ifdef ZMQ_HAVE_ANDROID
+#include <ifaddrs.h>
+#endif
+
 // duplicated from fd.hpp
 #ifdef ZMQ_HAVE_WINDOWS
 #include <winsock2.h>
