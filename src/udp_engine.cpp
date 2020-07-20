@@ -446,12 +446,10 @@ void zmq::udp_engine_t::out_event ()
         errno_assert (rc != -1);
 #else
         rc = sendto (_fd, _out_buffer, size, 0, _out_address, _out_address_len);
-      if(errno == EHOSTUNREACH || errno == EHOSTDOWN || errno == ENETDOWN ||
-         errno == ENETUNREACH){
-          // UDP "No route to host" we don't care about..
-      } else {
-        errno_assert (rc != -1);
-      }
+      // There's no way to catch this abort from the parent
+      // so this is a really bad practice.
+      // Therefore, in an effort to stop our app from crashing, we are doing without for now.
+      //  errno_assert (rc != -1);
 #endif
     } else
         reset_pollout (_handle);
